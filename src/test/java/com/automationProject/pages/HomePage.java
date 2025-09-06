@@ -3,12 +3,13 @@ package com.automationProject.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class HomePage {
     private WebDriver driver;
@@ -23,19 +24,20 @@ public class HomePage {
     }
 
     public void clickRandomAddToCartButton(int numberOfClicks) {
+        List<WebElement> addToCartButtons = driver.findElements(addToCartButton);
+
         Random random = new Random();
+        Set<Integer> usedIndexes = new HashSet<>();
 
         for (int i = 0; i < numberOfClicks; i++) {
-            List<WebElement> addToCart = driver.findElements(addToCartButton);
+            int randomIndex;
+            do {
+                randomIndex = random.nextInt(addToCartButtons.size());
+            } while (usedIndexes.contains(randomIndex));
 
-            if (addToCart.size() <= 1) {
-                System.out.println("No hay suficientes botones: Add to Cart");
-                return;
-            }
+            usedIndexes.add(randomIndex);
 
-            int index = 1 + random.nextInt(addToCart.size() - 1);
-            WebElement button = addToCart.get(index);
-
+            WebElement button = addToCartButtons.get(randomIndex);
             button.click();
         }
     }
