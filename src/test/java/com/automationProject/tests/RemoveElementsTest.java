@@ -1,23 +1,11 @@
 package com.automationProject.tests;
 
-import com.automationProject.pages.CartPage;
-import com.automationProject.pages.HomePage;
-import com.automationProject.pages.LoginPage;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import com.automationProject.base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class RemoveElementsTest {
-    private WebDriver driver;
-    private LoginPage loginPage;
-    private HomePage homePage;
-    private CartPage cartPage;
+public class RemoveElementsTest extends BaseTest {
 
     @DataProvider
     public Object[][] loginData() {
@@ -31,20 +19,6 @@ public class RemoveElementsTest {
         };
     }
 
-    @BeforeMethod
-    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-
-        options.addArguments("--incognito");
-
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
-        cartPage = new CartPage(driver);
-    }
-
     @Test(dataProvider = "loginData")
     public void removeElementsTest(String username, String password, int numberOfClicks) {
         loginPage.goToLoginPage();
@@ -56,15 +30,6 @@ public class RemoveElementsTest {
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/cart.html");
 
         cartPage.removeFromCart();
-        cartPage.cartIsEmpty();
         Assert.assertTrue(cartPage.cartIsEmpty(), "Cart is not empty after removing items");
-
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
     }
 }

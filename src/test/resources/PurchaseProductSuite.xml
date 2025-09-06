@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-
-<suite name="PurchaseProductTest">
-    <test name="PurchaseProductTest">
-        <classes>
-            <class name="com.automationProject.tests.PurchaseProductTest"/>
-        </classes>
-    </test>
-</suite>
