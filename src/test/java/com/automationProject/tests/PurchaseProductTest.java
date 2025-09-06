@@ -1,22 +1,11 @@
 package com.automationProject.tests;
 
-import com.automationProject.pages.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import com.automationProject.base.BaseTest;
 import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-public class PurchaseProductTest {
-
-    private WebDriver driver;
-    private LoginPage loginPage;
-    private HomePage homePage;
-    private CartPage cartPage;
-    private CheckoutStepOne checkoutStepOne;
-    private CheckoutStepTwo checkoutStepTwo;
-    private CheckoutComplete checkoutComplete;
+public class PurchaseProductTest extends BaseTest {
 
     @DataProvider
     public Object[][] loginData() {
@@ -30,25 +19,9 @@ public class PurchaseProductTest {
         };
     }
 
-    @BeforeMethod
-    public void setUp() {
-        ChromeOptions options = new ChromeOptions();
-
-        options.addArguments("--incognito");
-
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        loginPage = new LoginPage(driver);
-        homePage = new HomePage(driver);
-        cartPage = new CartPage(driver);
-        checkoutStepOne = new CheckoutStepOne(driver);
-        checkoutStepTwo = new CheckoutStepTwo(driver);
-        checkoutComplete = new CheckoutComplete(driver);
-    }
-
     @Test(dataProvider = "loginData")
-    public void PurchaseProductTest(String username, String password, int numberOfClicks, String firstName, String lastName, String zipCode ) {
+    public void purchaseProductTest(String username, String password, int numberOfClicks,
+                                    String firstName, String lastName, String zipCode) {
 
         loginPage.goToLoginPage();
         loginPage.loginValidUser(username, password);
@@ -61,24 +34,15 @@ public class PurchaseProductTest {
         cartPage.navigateToCheckoutStepOnePage();
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-step-one.html");
 
-        checkoutStepOne.fillInformationForm(firstName,lastName,zipCode);
+        checkoutStepOne.fillInformationForm(firstName, lastName, zipCode);
         checkoutStepOne.navigateToCheckoutStepTwoPage();
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-step-two.html");
 
         checkoutStepTwo.navigateToCheckoutComplete();
         Assert.assertEquals(driver.getCurrentUrl(), "https://www.saucedemo.com/checkout-complete.html");
 
-        checkoutComplete.getThankYouMessage();
         Assert.assertEquals(checkoutComplete.getThankYouMessage(), "Thank you for your order!");
-        checkoutComplete.getOrderMessage();
-        Assert.assertEquals(checkoutComplete.getOrderMessage(), "Your order has been dispatched, and will arrive just as fast as the pony can get there!");
+        Assert.assertEquals(checkoutComplete.getOrderMessage(),
+                "Your order has been dispatched, and will arrive just as fast as the pony can get there!");
     }
-
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-           driver.quit();
-       }
-  }
-
 }
