@@ -31,21 +31,14 @@ automationProject/<br>
 
 ---
 
-## ⚙️ Setup Instructions  
+## ▶️ Running the Tests
 
-### 1. Clone the Repository  
+### From IntelliJ
+- Right-click on `suite.xml` → **Run 'TestsSuite.xml'**  
+
+### From Maven
 ```bash
-https://github.com/diegosalazar01/POMProject.git
-cd automationProject
-```
-### 2. Install Dependencies
-```bash
-mvn clean install
-```
-### 3. Run Tests
-Run the full suite using TestNG:
-```bash
-mvn test -DsuiteXmlFile=src/test/resources/TestsSuite.xml
+mvn clean test
 ```
 
 ---
