@@ -34,7 +34,7 @@ automationProject/<br>
 ## ▶️ Running the Tests
 
 ### From IntelliJ
-- Right-click on `suite.xml` → **Run 'TestsSuite.xml'**  
+- Right-click on `TestsSuite.xml` → **Run 'TestsSuite.xml'**  
 
 ### From Maven
 ```bash
