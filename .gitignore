@@ -1,40 +1,55 @@
+### Build Artifacts ###
+# Ignora la carpeta 'target', donde Maven compila el proyecto.
+# Esto incluye archivos .class, .jar, .war, etc.
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+# Ignora los archivos de log.
+*.log
+!**/src/main/**/log/
+!**/src/test/**/log/
+
+# Archivos de empaquetado y temporales.
+*.jar
+*.war
+*.zip
+*.rar
+*.class
+
+# Logs de la JVM.
+hs_err_pid*
+
+### Maven Wrapper ###
+# Mantén el Maven Wrapper jar para asegurar que la construcción funcione en diferentes máquinas.
+# Esta línea niega la ignorancia de "maven-wrapper.jar" definida en otras reglas.
+!.mvn/wrapper/maven-wrapper.jar
+
+### IDE Specific ###
+# Configuración para IntelliJ IDEA
+.idea/
 *.iml
 *.ipr
+*.iws
 
-### Eclipse ###
-.apt_generated
+# Configuración para Eclipse
+.apt_generated/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
-.sts4-cache
+.sts4-cache/
 
-### NetBeans ###
+# Configuración para NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/build/
 
-### VS Code ###
+# Configuración para Visual Studio Code
 .vscode/
 
-### Mac OS ###
+### OS Specific ###
+# Archivos de configuración de sistema operativo.
 .DS_Store
-
-.idea
+Thumbs.db
